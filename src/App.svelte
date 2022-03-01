@@ -19,7 +19,7 @@
   ]
 </script>
 
-<main>
+<main class="container">
     
     <FeedbackList {feedback}/>
 
