@@ -1,21 +1,50 @@
 <script>
     import Card from "./Card.svelte";
     import Button from "./Button.svelte";
+    import RatingSelect from "./RatingSelect.svelte";
 
     let text = ''
     let btnDisabled = true
+    let min = 10
+    let rating = 10
+    let message
+
+    const handleSelect = e => rating = e.detail
+    const handleInput = () => {
+        if (text.trim().length <= min) {
+            message = `Text must be at least ${min} characters`
+            btnDisabled = true
+        } else {
+            message = null
+            btnDisabled = false
+        }
+    }
+    const handleSubmit = () => {
+        if(text.trim().length > min) {
+            const newFeedback = {
+                id:
+                text,
+                rating: +number
+            }
+        }
+    }
 </script>
 <Card>
     <header>
         <h2>How would you rate your service with us?</h2>
     </header>
-    <form >
-
+    <form on:submit | preventDefault={handleSubmit}>
+        <RatingSelect  on:rating-select={handleSelect} />
         <div class="input-group">
-            <input type="text"bind:value = {text} placeholder="Tell us something that keeps you coming back">
+            <input type="text" bind:value={text} on:input={handleInput}
+                   placeholder="Tell us something that keeps you coming back">
             <Button disabled={btnDisabled} type="submit">Send</Button>
         </div>
-
+        {#if message}
+            <div class="message">
+                {message}
+            </div>
+            {/if}
     </form>
 </Card>
 <style>
@@ -23,11 +52,13 @@
         max-width: 400px;
         margin: auto;
     }
+
     header h2 {
         font-size: 22px;
         font-weight: 600;
         text-align: center;
     }
+
     .input-group {
         display: flex;
         flex-direction: row;
@@ -36,15 +67,18 @@
         border-radius: 8px;
         margin-top: 15px;
     }
+
     input {
         flex-grow: 2;
         border: none;
         font-size: 16px;
     }
+
     input:focus {
         outline: none;
     }
-    .message{
+
+    .message {
         padding-top: 10px;
         text-align: center;
         color: rebeccapurple;
