@@ -1,9 +1,16 @@
 <script>
+    import {onMount, onDestroy} from 'svelte';
+    import {FeedbackStore} from '../stores';
+    import {fade, scale} from 'svelte/transition'
+    import FeedbackItem from './FeedbackItem.svelte';
 
-        import {fade, scale} from 'svelte/transition'
-        import FeedbackItem from './FeedbackItem.svelte';
+    let feedback = []
 
-    export let feedback = []
+    FeedbackStore.subscribe((data) => feedback = data )
+
+    onMount(() => {
+        console.log('mounted');
+    })
 </script>
 {#each feedback as fb (fb.id)}
     <div in:scale out:fade="{{duration: 500}}">
