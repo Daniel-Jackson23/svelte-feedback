@@ -6,11 +6,14 @@
 
     let feedback = []
 
-    FeedbackStore.subscribe((data) => feedback = data )
+ <!-- const unsubscribe =   FeedbackStore.subscribe((data) => feedback = data )-->
 
-    onMount(() => {
-        console.log('mounted');
-    })
+ <!--   onMount(() => {-->
+ <!--       console.log('mounted');-->
+ <!--   })-->
+ <!--onDestroy(() => {-->
+ <!--    unsubscribe()-->
+ // })
 </script>
 {#each feedback as fb (fb.id)}
     <div in:scale out:fade="{{duration: 500}}">
